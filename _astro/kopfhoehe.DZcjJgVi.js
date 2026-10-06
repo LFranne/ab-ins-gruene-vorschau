@@ -1,0 +1,1 @@
+var e=document.querySelector(`header`);if(e){let t=()=>document.documentElement.style.setProperty(`--kopf-hoehe`,`${e.offsetHeight}px`);t(),new ResizeObserver(t).observe(e)}
