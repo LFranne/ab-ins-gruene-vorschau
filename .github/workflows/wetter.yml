@@ -1,0 +1,25 @@
+# Stündlich das Wetter für Bad Wildbad holen und als wetter.json in die Vorschau legen (ohne neu zu bauen).
+# Liegt im Repo LFranne/ab-ins-gruene-vorschau unter .github/workflows/wetter.yml; das Skript wetter-holen.mjs liegt dort im Hauptordner.
+name: Wetter aktualisieren
+on:
+  schedule:
+    - cron: '7 * * * *'
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  wetter:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Wetter holen
+        run: node wetter-holen.mjs wetter.json
+      - name: Speichern, wenn sich etwas geändert hat
+        run: |
+          if [ -n "$(git status --porcelain wetter.json)" ]; then
+            git config user.name "wetter-job"
+            git config user.email "wetter-job@users.noreply.github.com"
+            git add wetter.json
+            git commit -m "Wetter aktualisiert"
+            git push
+          fi
