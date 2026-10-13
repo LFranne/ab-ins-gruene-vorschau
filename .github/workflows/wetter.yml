@@ -1,9 +1,9 @@
-# Stündlich das Wetter für Bad Wildbad holen und als wetter.json in die Vorschau legen (ohne neu zu bauen).
+# Alle 15 Minuten (GitHub drosselt Zeitläufe oft auf Stunden) das Wetter für Bad Wildbad holen und als wetter.json in die Vorschau legen (ohne neu zu bauen).
 # Liegt im Repo LFranne/ab-ins-gruene-vorschau unter .github/workflows/wetter.yml; das Skript wetter-holen.mjs liegt dort im Hauptordner.
 name: Wetter aktualisieren
 on:
   schedule:
-    - cron: '7 * * * *'
+    - cron: '*/15 * * * *'
   workflow_dispatch:
 permissions:
   contents: write
