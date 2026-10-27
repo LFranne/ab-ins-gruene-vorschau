@@ -17,12 +17,12 @@ const bilderBasis = "/ab-ins-gruene-vorschau/images/";
       window.__aigSaison = saison;
       root.dataset.jahreszeit = saison;
       if (heroIntro) {
-        const endung = saison === 'sommer' ? '' : '-' + saison;
+        const tal = saison === 'winter' ? 'winter' : saison === 'sommer' ? 'sommer' : 'fruehherbst';
         [['1280', '(max-width: 767px)'], ['2560', '(min-width: 768px)']].forEach(([breite, media]) => {
           const link = document.createElement('link');
           link.rel = 'preload';
           link.as = 'image';
-          link.href = bilderBasis + 'hero-tal' + endung + '-' + breite + '.webp';
+          link.href = bilderBasis + 'hero-neu/tal-' + tal + '-' + breite + '.webp';
           link.media = media;
           document.head.append(link);
         });
