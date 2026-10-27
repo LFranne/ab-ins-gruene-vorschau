@@ -18,13 +18,16 @@ const bilderBasis = "/ab-ins-gruene-vorschau/images/";
       root.dataset.jahreszeit = saison;
       if (heroIntro) {
         const tal = saison === 'winter' ? 'winter' : saison === 'sommer' ? 'sommer' : 'fruehherbst';
+        // Tal, Portal (Baumstämme) und Boden kommen erst per Skript ins Bild; ohne Vorladen blitzt seitlich der grüne Grund auf
         [['1280', '(max-width: 767px)'], ['2560', '(min-width: 768px)']].forEach(([breite, media]) => {
-          const link = document.createElement('link');
-          link.rel = 'preload';
-          link.as = 'image';
-          link.href = bilderBasis + 'hero-neu/tal-' + tal + '-' + breite + '.webp';
-          link.media = media;
-          document.head.append(link);
+          ['tal-' + tal, 'portal', 'boden-' + saison].forEach((name) => {
+            const link = document.createElement('link');
+            link.rel = 'preload';
+            link.as = 'image';
+            link.href = bilderBasis + 'hero-neu/' + name + '-' + breite + '.webp';
+            link.media = media;
+            document.head.append(link);
+          });
         });
       }
       root.classList.add('js');
