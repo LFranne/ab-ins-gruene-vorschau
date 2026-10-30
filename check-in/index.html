@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Ab ins Grüne – Finaler Check-In</title>
+<meta name="description" content="Finaler Check-In Vibe Coding Bootcamp: Wie Franziska Löffelmann mit KI die Direktbuchungs-Webseite für ihre Ferienwohnung in Bad Wildbad gebaut hat.">
+<style>
+/* One-Pager Finaler Check-In */
+@font-face{font-family:'Zilla Slab';font-weight:700;src:url(fonts/zilla-slab-latin-700-normal.woff2) format('woff2')}
+@font-face{font-family:'Zilla Slab';font-weight:300;src:url(fonts/zilla-slab-latin-300-normal.woff2) format('woff2')}
+@font-face{font-family:'Asap Condensed';font-weight:400;src:url(fonts/asap-condensed-latin-400-normal.woff2) format('woff2')}
+@font-face{font-family:'Asap Condensed';font-weight:500;src:url(fonts/asap-condensed-latin-500-normal.woff2) format('woff2')}
+:root{--wald:#253C28;--fichte:#BBD034;--dust:#F2EFED;--graphite:#202829;--grau:#46504f;--weiss:#fff}
+*{box-sizing:border-box}
+html{background:#d9d6d3}
+body{margin:0;color:var(--graphite);font:17px/1.45 "Asap Condensed","Arial Narrow",Arial,sans-serif}
+.blatt{background:var(--dust);max-width:210mm;margin:0 auto;padding:12mm 13mm 11mm;display:flex;flex-direction:column;gap:7mm}
+.kopf{background:var(--wald);color:var(--weiss);margin:-12mm -13mm 0;padding:10mm 13mm 8mm}
+.kopf .anlass{margin:0 0 2mm;color:var(--fichte);font-weight:500;letter-spacing:.06em;text-transform:uppercase;font-size:14px}
+h1{margin:0;font:700 34px/1.12 "Zilla Slab",Rockwell,Georgia,serif}
+.kopf .unter{margin:3mm 0 0;font:300 20px/1.3 "Zilla Slab",Georgia,serif;color:var(--dust)}
+h2{margin:0 0 2mm;font:700 18px/1.2 "Zilla Slab",Georgia,serif;color:var(--wald)}
+.spalten{display:grid;grid-template-columns:1.05fr 1fr;gap:8mm;align-items:start}
+.bild{margin:0}
+.bild img{display:block;width:100%;height:auto;border-radius:3mm;box-shadow:0 2mm 6mm rgba(37,60,40,.25)}
+.bild figcaption{margin-top:1.5mm;font-size:13px;color:var(--grau)}
+p{margin:0 0 3mm}
+ul.punkte{margin:0;padding:0;list-style:none;display:grid;gap:1.6mm}
+ul.punkte li{padding-left:5mm;position:relative}
+ul.punkte li::before{content:"";position:absolute;left:0;top:.5em;width:2.4mm;height:2.4mm;border-radius:50%;background:var(--fichte)}
+.hypothese{background:var(--weiss);border-left:1.6mm solid var(--fichte);border-radius:0 3mm 3mm 0;padding:3.5mm 5mm}
+.hypothese p{margin:0}
+.unten{display:grid;grid-template-columns:1fr 1fr;gap:8mm;align-items:start}
+.person{display:flex;gap:4.5mm;align-items:center}
+.foto{flex:none;width:24mm;height:24mm;border-radius:50%;background:var(--wald);color:var(--fichte);display:grid;place-items:center;font:700 26px "Zilla Slab",Georgia,serif;overflow:hidden}
+.foto img{width:100%;height:100%;object-fit:cover}
+.person strong{display:block;font:700 19px/1.2 "Zilla Slab",Georgia,serif;color:var(--wald)}
+.person span{display:block;color:var(--grau);font-size:15px}
+.links{margin:0;padding:0;list-style:none;display:grid;gap:1.6mm}
+.links li{display:flex;gap:3mm;align-items:baseline}
+.links b{flex:none;width:21mm;color:var(--wald);font-weight:500}
+.links a{color:var(--graphite);text-decoration-color:var(--fichte);text-decoration-thickness:2px;text-underline-offset:2px;font-size:15px;overflow-wrap:anywhere}
+a:focus-visible{outline:3px solid var(--fichte);outline-offset:2px}
+.fuss{margin-top:auto;padding-top:3mm;border-top:1px solid rgba(37,60,40,.25);color:var(--grau);font-size:14px;display:flex;justify-content:space-between;gap:4mm;flex-wrap:wrap}
+@media (max-width:640px){
+  .blatt{padding:8mm 16px;margin:0;max-width:none}
+  .kopf{margin:-8mm -16px 0;padding:8mm 16px 6mm}
+  h1{font-size:27px}
+  .spalten,.unten{grid-template-columns:1fr}
+}
+@media print{
+  @page{size:A4;margin:0}
+  html{background:none}
+  body{font-size:12.5px;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .blatt{width:210mm;height:297mm;max-width:none;margin:0;padding:11mm 13mm 9mm;gap:5.5mm;overflow:hidden;page-break-after:avoid}
+  .kopf{margin:-11mm -13mm 0;padding:9mm 13mm 7mm}
+  h1{font-size:28px}
+  .kopf .unter{font-size:16px}
+  h2{font-size:15px}
+  .links a::after{content:""}
+}
+</style>
+</head>
+<body>
+<main class="blatt">
+  <header class="kopf">
+    <p class="anlass">Vibe Coding Bootcamp · Finaler Check-In · 2. November 2026</p>
+    <h1>Ab ins Grüne – Dein Ferienwohnungskonzept von Bad Wildbad</h1>
+    <p class="unter">Wie ich mit KI eine Webseite für Direktbuchung gebaut habe</p>
+  </header>
+
+  <div class="spalten">
+    <section>
+      <h2>Worum es geht</h2>
+      <p>Ab ins Grüne verbindet besondere Unterkünfte mit einer starken Marke, Storytelling und gezielter Kommunikation. Wir wollen Ferien nicht über Ausstattung und Lage verkaufen, sondern über ein Urlaubserlebnis, das man wiedererkennt.</p>
+      <p>Die erste Unterkunft ist eine Ferienwohnung in Bad Wildbad für bis zu sechs Gäste. Die Webseite führt Gäste direkt zur Buchung: mit Bildern, Verfügbarkeit, Preis und Buchung an einem Ort.</p>
+      <p>Im Talk zeige ich, wie ich als Gastgeberin und Gestalterin das Ganze ohne Datenbank und ohne eigenes Backend mit KI-Coding-Tools gebaut habe, und welche Entscheidungen unterwegs gefallen sind.</p>
+      <ul class="punkte">
+        <li>Eine statische Seite (Astro), Buchung über das Smoobu-Widget</li>
+        <li>Startseite, die sich an Jahreszeit und aktuelles Wetter anpasst</li>
+        <li>Ein gezeichneter Hase als Wegbegleiter, 360°-Rundgang, Postkarten-Generator</li>
+        <li>Kontaktformular mit eigenem PHP-Skript, ohne Drittanbieter</li>
+        <li>Live seit 29. Oktober 2026</li>
+      </ul>
+    </section>
+    <figure class="bild">
+      <img src="./startseite.png" alt="Startseite von Ab ins Grüne: Blick durch einen Baumbogen auf bewaldete Hügel, links der Schriftzug „Auszeit. Ankommen. Ab ins Grüne.“, rechts drei Kacheln und ein Hase">
+      <figcaption>Die Startseite (Sommer, bedeckt), Stand 30. Oktober 2026</figcaption>
+    </figure>
+  </div>
+
+  <section class="hypothese">
+    <h2>Die kritischste Annahme</h2>
+    <p>Gäste buchen lieber direkt über die eigene Seite, wenn sie dort alles finden: Bilder, Rundgang, Umgebung, Kalender und Preis. Ob das trägt, und was ich dafür gebaut habe, ist der rote Faden meines Talks.</p>
+  </section>
+
+  <div class="unten">
+    <section class="person">
+      <div class="foto"><img src="./franziska.jpg" alt="Franziska Löffelmann als Figur mit dunklen Locken und blauem Hemd"></div>
+      <div>
+        <strong>Franziska Löffelmann</strong>
+        <span>Goldschmiedemeisterin, Team Lead Design &amp; Entwicklung</span>
+        <span>Gastgeberin bei „Ab ins Grüne“</span>
+      </div>
+    </section>
+    <section>
+      <h2>Links</h2>
+      <ul class="links">
+        <li><b>Live</b><a href="https://ab-ins-gruene.net/">ab-ins-gruene.net</a></li>
+        <li><b>Rundgang</b><a href="https://rundgang.ab-ins-gruene.net/">rundgang.ab-ins-gruene.net</a></li>
+        <li><b>Vorschau</b><a href="https://lfranne.github.io/ab-ins-gruene-vorschau/">lfranne.github.io/ab-ins-gruene-<wbr>vorschau</a></li>
+        <li><b>LinkedIn</b><a href="https://www.linkedin.com/in/franziska-l%C3%B6ffelmann-b984a813a/">linkedin.com/in/franziska-löffelmann</a></li>
+      </ul>
+    </section>
+  </div>
+
+  <footer class="fuss">
+    <span>Kein Pitch: eine Reflexion über Entscheidungen, KI-Workflow und Lernen.</span>
+    <span>Vibe Coding Bootcamp, Kohorte 1</span>
+  </footer>
+</main>
+</body>
+</html>
