@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Hase A Vorschau</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cellipse cx='16' cy='21' rx='9' ry='8' fill='%23253c28'/%3E%3Cellipse cx='12' cy='8' rx='2.6' ry='7' fill='%23253c28'/%3E%3Cellipse cx='20' cy='8' rx='2.6' ry='7' fill='%23253c28'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="style.css">
+<script type="importmap">
+{
+  "imports": {
+    "three": "./vendor/three/build/three.module.js",
+    "three/addons/": "./vendor/three/examples/jsm/"
+  }
+}
+</script>
+<script type="module" src="main.js"></script>
+</head>
+<body>
+
+<main class="buehne">
+  <canvas id="leinwand" aria-label="3D-Ansicht von Hase A. Ziehen dreht die Kamera, Mausrad zoomt."></canvas>
+  <p class="lade" id="lade" role="status">Hase A wird geladen …</p>
+</main>
+
+<aside class="tafel" aria-label="Steuerung">
+  <header class="kopf">
+    <p class="ueber">Ab ins Grüne · 3D-Prototyp</p>
+    <h1>Hase A</h1>
+    <p class="unter">Der Wachsame – ruhig, aufmerksam, vorsichtig</p>
+  </header>
+  <p class="hinweis">Vorschau des Prototyps, nicht zur Weitergabe. Die Bewegung ist noch in Arbeit.</p>
+
+  <section>
+    <h2>Bewegung des Hasen</h2>
+    <div class="chips" role="radiogroup" aria-label="Animation" id="animationen">
+      <button type="button" role="radio" data-modus="lebendig" aria-checked="true">Lebendig</button>
+      <button type="button" role="radio" data-modus="hoppeln" aria-checked="false">Hoppeln</button>
+      <button type="button" role="radio" data-modus="ruhe" aria-checked="false">Stillsitzen</button>
+    </div>
+    <div class="zeile">
+      <button type="button" class="knopf" id="pause" aria-pressed="false">Pause</button>
+      <p class="status" id="status" aria-live="polite"></p>
+    </div>
+  </section>
+
+  <section>
+    <h2>Kamera</h2>
+    <div class="chips klein" id="ansichten">
+      <button type="button" data-ansicht="vorne">Vorne</button>
+      <button type="button" data-ansicht="seite">Seite</button>
+      <button type="button" data-ansicht="hinten">Hinten</button>
+      <button type="button" data-ansicht="schraeg">Schräg</button>
+    </div>
+    <label class="schalter"><input type="checkbox" id="kreisen"> Kamera kreist um den Hasen</label>
+    <p class="hinweis">Ziehen dreht die Kamera, Mausrad oder zwei Finger zoomen, rechte Taste verschiebt. Dabei bewegt sich nur die Kamera, nicht der Hase.</p>
+  </section>
+
+  <section>
+    <h2>Darstellung</h2>
+    <div class="chips klein" role="radiogroup" aria-label="Darstellung" id="darstellung">
+      <button type="button" role="radio" data-art="aquarell" aria-checked="true">Aquarell</button>
+      <button type="button" role="radio" data-art="farben" aria-checked="false">Nur Farben</button>
+      <button type="button" role="radio" data-art="form" aria-checked="false">Form</button>
+    </div>
+    <label class="schalter"><input type="checkbox" id="boden" checked> Boden anzeigen</label>
+    <label class="schalter"><input type="checkbox" id="kontur"> Feine Kontur</label>
+  </section>
+
+  <footer class="fuss" id="daten">Modell wird geprüft …</footer>
+</aside>
+</body>
+</html>

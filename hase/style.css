@@ -1,0 +1,115 @@
+@font-face {
+  font-family: 'Zilla Slab';
+  src: url('fonts/zilla-slab-latin-500-normal.woff2') format('woff2');
+  font-weight: 500;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Asap Condensed';
+  src: url('fonts/asap-condensed-latin-400-normal.woff2') format('woff2');
+  font-weight: 400;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Asap Condensed';
+  src: url('fonts/asap-condensed-latin-500-normal.woff2') format('woff2');
+  font-weight: 500;
+  font-display: swap;
+}
+
+:root {
+  --papier: #efe8dc;
+  --papier-hell: #f7f2e9;
+  --wald: #253c28;
+  --wald-2: #4a613c;
+  --tinte: #3a3128;
+  --tinte-leise: #6d6152;
+  --linie: color-mix(in srgb, var(--wald) 16%, transparent);
+  --font-display: 'Zilla Slab', Georgia, serif;
+  --font-body: 'Asap Condensed', 'Arial Narrow', Arial, sans-serif;
+  --tafel-breite: 320px;
+}
+
+* { box-sizing: border-box; }
+html, body { margin: 0; height: 100%; }
+body {
+  font: 16px/1.45 var(--font-body);
+  color: var(--tinte);
+  background-color: var(--papier);
+  /* Papier: leichte Vignette und feines Korn */
+  background-image:
+    radial-gradient(ellipse at 45% 42%, rgba(255, 252, 244, 0.75) 0%, rgba(255, 252, 244, 0) 62%),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='k'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.35 0 0 0 0 0.3 0 0 0 0 0.24 0 0 0 0.07 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23k)'/%3E%3C/svg%3E");
+  overflow: hidden;
+}
+
+.buehne {
+  position: fixed;
+  inset: 0 var(--tafel-breite) 0 0;
+}
+#leinwand { display: block; width: 100%; height: 100%; touch-action: none; cursor: grab; }
+#leinwand:active { cursor: grabbing; }
+.lade {
+  position: absolute; inset: auto 0 45% 0; margin: 0; text-align: center;
+  font: 500 1.1rem var(--font-display); color: var(--tinte-leise);
+}
+.lade[hidden] { display: none; }
+.lade.fehler { color: #8a2d1f; padding: 0 24px; }
+
+.tafel {
+  position: fixed; top: 0; right: 0; bottom: 0; width: var(--tafel-breite);
+  overflow-y: auto;
+  padding: 28px 24px 20px;
+  background: color-mix(in srgb, var(--papier-hell) 88%, transparent);
+  border-left: 1px solid var(--linie);
+  display: flex; flex-direction: column; gap: 22px;
+}
+.kopf h1 { margin: 2px 0 0; font: 500 2rem/1.1 var(--font-display); color: var(--wald); }
+.ueber { margin: 0; font-size: 0.8rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--tinte-leise); }
+.unter { margin: 4px 0 0; color: var(--tinte-leise); }
+h2 { margin: 0 0 10px; font: 500 1.05rem var(--font-display); color: var(--wald); }
+section { border-top: 1px solid var(--linie); padding-top: 16px; }
+
+.chips { display: flex; flex-wrap: wrap; gap: 6px; }
+.chips button, .knopf {
+  font: 500 0.95rem var(--font-body);
+  color: var(--wald);
+  background: transparent;
+  border: 1px solid color-mix(in srgb, var(--wald) 35%, transparent);
+  border-radius: 999px;
+  padding: 6px 13px;
+  min-height: 34px;
+  cursor: pointer;
+  transition: background-color 0.15s, color 0.15s, border-color 0.15s;
+}
+.chips.klein button { padding: 4px 11px; min-height: 30px; font-size: 0.9rem; }
+.chips button:hover, .knopf:hover { background: color-mix(in srgb, var(--wald) 8%, transparent); }
+.chips button[aria-checked="true"] { background: var(--wald); border-color: var(--wald); color: var(--papier-hell); }
+.knopf[aria-pressed="true"] { background: var(--wald-2); border-color: var(--wald-2); color: var(--papier-hell); }
+button:focus-visible, input:focus-visible { outline: 2px solid var(--wald); outline-offset: 2px; }
+
+.zeile { display: flex; align-items: center; gap: 12px; margin-top: 12px; }
+.status { margin: 0; font-size: 0.88rem; color: var(--tinte-leise); min-height: 1.3em; }
+.schalter { display: flex; align-items: center; gap: 8px; margin-top: 10px; cursor: pointer; }
+.schalter input { accent-color: var(--wald); width: 16px; height: 16px; }
+.hinweis { margin: 10px 0 0; font-size: 0.85rem; color: var(--tinte-leise); }
+.fuss { margin-top: auto; font-size: 0.78rem; color: var(--tinte-leise); border-top: 1px solid var(--linie); padding-top: 12px; }
+
+@media (prefers-reduced-motion: reduce) {
+  .chips button, .knopf { transition: none; }
+}
+
+/* Handy und schmale Fenster: Hase oben, Steuerung als Leiste unten */
+@media (max-width: 760px) {
+  body { overflow: auto; }
+  .buehne { position: fixed; inset: 0 0 auto 0; height: 58vh; height: 58dvh; }
+  .tafel {
+    top: 58vh; top: 58dvh; left: 0; width: auto;
+    border-left: 0; border-top: 1px solid var(--linie);
+    padding: 14px 16px 18px; gap: 14px;
+    background: var(--papier-hell);
+  }
+  .kopf h1 { font-size: 1.5rem; }
+  .unter { display: none; }
+  section { padding-top: 12px; }
+}

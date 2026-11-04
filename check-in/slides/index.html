@@ -1,0 +1,298 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Ab ins Grüne – Takeaway</title>
+<meta name="description" content="Takeaway zum Finalen Check-In: Wie sich eine Ferienwohnung digital begleiten lässt. Journey, Entscheidungen und Learnings beim Bauen mit KI.">
+<style>
+/* Takeaway-Slides Finaler Check-In */
+@font-face{font-family:'Zilla Slab';font-weight:700;src:url(../fonts/zilla-slab-latin-700-normal.woff2) format('woff2')}
+@font-face{font-family:'Zilla Slab';font-weight:300;src:url(../fonts/zilla-slab-latin-300-normal.woff2) format('woff2')}
+@font-face{font-family:'Asap Condensed';font-weight:400;src:url(../fonts/asap-condensed-latin-400-normal.woff2) format('woff2')}
+@font-face{font-family:'Asap Condensed';font-weight:500;src:url(../fonts/asap-condensed-latin-500-normal.woff2) format('woff2')}
+:root{--wald:#253C28;--fichte:#BBD034;--dust:#F2EFED;--graphite:#202829;--grau:#46504f;--weiss:#fff;--karte:#fff}
+*{box-sizing:border-box}
+html,body{margin:0;height:100%;background:#0f1a11;overflow:hidden}
+body{font:30px/1.4 "Asap Condensed","Arial Narrow",Arial,sans-serif;color:var(--graphite)}
+.buehne{position:absolute;left:50%;top:50%;width:1600px;height:900px;transform-origin:center;overflow:hidden;background:var(--dust)}
+.slide{position:absolute;inset:0;padding:70px 100px;display:flex;flex-direction:column;opacity:0;visibility:hidden;transition:opacity .35s}
+.slide.aktiv{opacity:1;visibility:visible}
+.slide.dunkel{background:var(--wald);color:var(--dust)}
+h1,h2,h3{font-family:"Zilla Slab",Rockwell,Georgia,serif;margin:0;line-height:1.1}
+h1{font-size:74px;font-weight:700}
+h2{font-size:56px;font-weight:700;color:var(--wald)}
+.dunkel h2{color:var(--weiss)}
+h3{font-size:34px;font-weight:700;color:var(--wald)}
+.dunkel h3{color:var(--fichte)}
+p{margin:0 0 14px}
+.eyebrow{margin:0 0 22px;color:var(--fichte);font-weight:500;letter-spacing:.07em;text-transform:uppercase;font-size:24px}
+.hell .eyebrow{color:var(--grau)}
+.gross{font-size:36px}
+.klein{font-size:22px;color:var(--grau)}
+.dunkel .klein{color:#c9d3c8}
+.logo{height:74px;width:auto;display:block;margin:0 0 34px;align-self:flex-start}
+.zitat{font:300 52px/1.25 "Zilla Slab",Georgia,serif;color:var(--wald)}
+.dunkel .zitat{color:var(--dust)}
+.zitat b{font-weight:700;color:inherit}
+.lern{margin-top:auto;border-left:10px solid var(--fichte);background:var(--karte);border-radius:0 18px 18px 0;padding:22px 34px;font:300 36px/1.3 "Zilla Slab",Georgia,serif;color:var(--wald)}
+.dunkel .lern{background:rgba(255,255,255,.08);color:var(--dust)}
+.lern small{display:block;margin-bottom:6px;font:500 20px "Asap Condensed",sans-serif;letter-spacing:.07em;text-transform:uppercase;color:var(--grau)}
+.dunkel .lern small{color:var(--fichte)}
+img{display:block;max-width:100%}
+.bild{flex:none;border-radius:18px;box-shadow:0 14px 40px rgba(37,60,40,.28);overflow:hidden;background:#fff}
+.bild img{width:100%;height:100%;object-fit:cover}
+.reihe{display:grid;gap:30px}
+.reihe.drei{grid-template-columns:repeat(3,1fr)}
+.reihe.vier{grid-template-columns:repeat(4,1fr)}
+.reihe.zwei{grid-template-columns:1fr 1fr}
+.bildtext{margin:14px 0 0;font-size:28px;line-height:1.3;color:var(--grau)}
+.dunkel .bildtext{color:#c9d3c8}
+.bildtext b{color:var(--wald);font-weight:500}
+.dunkel .bildtext b{color:var(--fichte)}
+.karte{background:var(--karte);border-radius:20px;padding:30px 34px;box-shadow:0 8px 26px rgba(37,60,40,.14)}
+.dunkel .karte{background:rgba(255,255,255,.09);box-shadow:none}
+.karte .nr{font:700 64px/1 "Zilla Slab",Georgia,serif;color:var(--fichte);margin-bottom:10px}
+.karte p{font-size:31px;margin:12px 0 0}
+.zahl{font:700 112px/1 "Zilla Slab",Georgia,serif;color:var(--fichte)}
+.zahltext{font-size:32px;margin-top:8px;color:#c9d3c8}
+.tools{display:flex;flex-wrap:wrap;gap:16px;margin-top:56px}
+.tools span{border:2px solid var(--fichte);color:var(--dust);border-radius:999px;padding:8px 24px;font-size:31px}
+.person{display:flex;gap:44px;align-items:center}
+.foto{flex:none;width:300px;height:300px;border-radius:50%;overflow:hidden;box-shadow:0 14px 40px rgba(0,0,0,.35);background:var(--dust)}
+.foto img{width:100%;height:100%;object-fit:cover}
+.person ul{margin:0;padding:0;list-style:none;display:grid;gap:14px;font-size:40px}
+.person li::before{content:"";display:inline-block;width:16px;height:16px;border-radius:50%;background:var(--fichte);margin-right:18px;vertical-align:middle}
+.fluss{display:flex;align-items:stretch;gap:0;margin-top:34px}
+.schritt{flex:1;background:var(--karte);border-radius:20px;padding:26px 28px;box-shadow:0 8px 26px rgba(37,60,40,.14);position:relative}
+.schritt h3{font-size:30px;margin-bottom:8px}
+.schritt p{font-size:27px;margin:0;color:var(--grau)}
+.schritt.mensch{background:var(--wald);color:var(--dust)}
+.schritt.mensch h3{color:var(--fichte)}
+.schritt.mensch p{color:#c9d3c8}
+.pfeil{flex:none;width:54px;align-self:center;text-align:center;font:700 44px "Zilla Slab",serif;color:var(--wald)}
+.hinweis{margin-top:34px;display:flex;gap:30px}
+.hinweis div{flex:1;border:3px dashed rgba(37,60,40,.35);border-radius:18px;padding:20px 28px;font-size:29px;color:var(--grau)}
+.hinweis b{color:var(--wald);font-weight:500}
+.links{margin:44px 0 0;padding:0;list-style:none;display:grid;gap:24px;font-size:42px}
+.links li{display:flex;gap:20px;align-items:center}
+.links .ico{flex:none;width:70px;height:70px;padding:16px;border-radius:50%;background:var(--fichte);color:var(--wald)}
+.links a{color:var(--dust);text-decoration-color:var(--fichte);text-decoration-thickness:3px;text-underline-offset:5px}
+.fuss{position:absolute;left:100px;right:100px;bottom:26px;display:flex;justify-content:space-between;font-size:20px;color:var(--grau)}
+.dunkel .fuss{color:#9fb09f}
+.balken{position:fixed;left:0;bottom:0;height:5px;background:var(--fichte);width:0;transition:width .3s;z-index:5}
+.hilfe{position:fixed;right:12px;bottom:12px;z-index:5;font:16px "Asap Condensed",sans-serif;color:#9fb09f;opacity:.0;transition:opacity .3s}
+body:hover .hilfe{opacity:.9}
+:focus-visible{outline:4px solid var(--fichte);outline-offset:4px}
+@media (prefers-reduced-motion:reduce){.slide,.balken{transition:none}}
+@media print{
+  @page{size:1600px 900px;margin:0}
+  html,body{height:auto;overflow:visible;background:none}
+  .buehne{position:static;transform:none!important;width:1600px;height:auto;overflow:visible}
+  .slide{position:relative;width:1600px;height:900px;opacity:1;visibility:visible;page-break-after:always;break-after:page}
+  .balken,.hilfe{display:none}
+  body{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+}
+</style>
+</head>
+<body>
+<main class="buehne" id="buehne" aria-live="polite">
+
+<!-- 1 Titel -->
+<section class="slide dunkel aktiv" aria-label="Titel">
+  <p class="eyebrow">DL Vibe Coding Bootcamp · Finaler Check-In · 2. November 2026</p>
+  <img class="logo" src="../AIG_logotype_signet_links_dust.svg" alt="Ab ins Grüne" width="559" height="103">
+  <h1 style="font-size:68px;white-space:nowrap">Dein Ferienwohnungskonzept von Bad Wildbad</h1>
+  <p class="gross" style="margin-top:34px;max-width:1200px">Wie lässt sich eine Ferienwohnung digital begleiten? Vom ersten Eindruck über die Buchung bis zum Erlebnis vor Ort.</p>
+  <p style="margin-top:auto;font-size:30px">Franziska Löffelmann</p>
+</section>
+
+<!-- 2 Vorstellung -->
+<section class="slide dunkel" aria-label="Vorstellung">
+  <p class="eyebrow">Wer spricht</p>
+  <div class="person" style="margin-top:20px">
+    <div class="foto"><img src="../franziska.jpg" alt="Franziska Löffelmann als Figur mit dunklen Locken und blauem Hemd"></div>
+    <div>
+      <h2 style="margin-bottom:26px">Franziska Löffelmann</h2>
+      <ul>
+        <li>Gastgeberin „Ab ins Grüne“</li>
+        <li>CAD-Konstrukteurin</li>
+        <li>Goldschmiedemeisterin</li>
+        <li>Design und Entwicklung in der Schmuckbranche</li>
+      </ul>
+    </div>
+  </div>
+  <p class="lern" style="margin-top:auto"><small>Warum Bootcamp</small>Meine Ideen aus Design und Handwerk selbst in digitale Produkte übersetzen, mit KI etwas Eigenes bauen und eine Seite entwickeln, die zur Ferienwohnung passt.</p>
+</section>
+
+<!-- 3 Idee -->
+<section class="slide" aria-label="Idee">
+  <p class="eyebrow">Die Idee</p>
+  <div style="display:grid;grid-template-columns:1.1fr 1fr;gap:60px;align-items:center;flex:1">
+    <div>
+      <p class="zitat">Wir verkaufen Ferien nicht über <b>Ausstattung und Lage</b>, sondern über ein <b>Urlaubserlebnis, das man wiedererkennt.</b></p>
+      <p style="margin-top:30px;font-size:30px">Ab ins Grüne verbindet besondere Unterkünfte mit einer starken Marke, Storytelling und gezielter Kommunikation. Die erste Unterkunft: eine Ferienwohnung in Bad Wildbad.</p>
+    </div>
+    <div class="bild" style="aspect-ratio:16/10"><img src="../startseite_sommer_klar.jpg" alt="Startseite von Ab ins Grüne im Sommer: Blick durch einen Baumbogen auf bewaldete Hügel im Sonnenuntergang"></div>
+  </div>
+</section>
+
+<!-- 4 Kritische Annahme -->
+<section class="slide dunkel" aria-label="Kritischste Annahme">
+  <p class="eyebrow">Die kritischste Annahme</p>
+  <h2 style="font-size:70px;max-width:1300px">Gastfreundschaft beginnt vor der Ankunft.</h2>
+  <p class="gross" style="margin-top:26px;max-width:1250px">Wie kann ein zusammenhängendes digitales Erlebnis den Aufenthalt sinnvoll ergänzen?</p>
+  <div class="reihe zwei" style="margin-top:auto;margin-bottom:10px">
+    <div class="karte"><h3>Wie getestet</h3><p>Seit 29. Oktober live, bisher 4 Tage. Geprüft: Handy und Desktop, Buchungswege, Kontaktformular.</p></div>
+    <div class="karte"><h3>Was sich verändert hat</h3><p>Ich dachte, ich baue eine Buchungsseite. Gebaut habe ich ein <b>Erlebnis</b>, das beim Gast anfängt, bevor er anreist.</p></div>
+  </div>
+  <p class="klein" style="margin:12px 0 0">Ergebnis: noch zu früh, es gibt noch keine Rückmeldungen.</p>
+</section>
+
+<!-- 5 Hero Weg -->
+<section class="slide" aria-label="Journey Hero">
+  <p class="eyebrow">Journey · Entscheidung 1: Hero</p>
+  <h2 style="margin-bottom:28px">Vom ersten Hero zum Bild aus einem Guss</h2>
+  <div class="reihe vier" style="gap:22px">
+    <div><div class="bild" style="aspect-ratio:16/9"><img src="./hero_erster.jpg" alt="Erster Hero: dunkler Waldrahmen mit Blick auf ein Fachwerk-Städtchen, links unten Hase, rechts unten Fuchs"></div><p class="bildtext"><b>Erster Hero:</b> KI-Waldrahmen mit erfundenem Städtchen.</p></div>
+    <div><div class="bild" style="aspect-ratio:16/9"><img src="./hero_042.jpg" alt="Entwurf 042: gezeichneter Waldrahmen im Papierschnitt-Stil"></div><p class="bildtext"><b>Entwurf 042:</b> selbst gezeichnet. Der Stil war nicht abgefragt, verworfen.</p></div>
+    <div><div class="bild" style="aspect-ratio:16/9"><img src="./hero_046.jpg" alt="Entwurf 046: naturrealistisches Baumportal im Abendlicht mit Tal"></div><p class="bildtext"><b>Entwurf 046:</b> erst ein Gesamtbild, daraus die Ebenen.</p></div>
+    <div><div class="bild" style="aspect-ratio:16/9"><img src="../startseite_sommer_klar.jpg" alt="Startseite heute: Baumportal im Sommer mit Kacheln und Hase"></div><p class="bildtext"><b>Heute:</b> live, mit Jahreszeit und echtem Wetter.</p></div>
+  </div>
+  <p class="lern"><small>Was ich mitnehme</small>Einzeln erzeugte Ebenen wirken zusammengeklebt. Es braucht ein Gesamtbild als Master.</p>
+</section>
+
+<!-- 6 Hero Jahreszeiten -->
+<section class="slide dunkel" aria-label="Hero Jahreszeiten">
+  <p class="eyebrow">Ergebnis</p>
+  <h2 style="margin-bottom:28px">Eine Seite, vier Jahreszeiten, echtes Wetter</h2>
+  <div class="reihe vier">
+    <div><div class="bild" style="aspect-ratio:16/10"><img src="./hero_fruehling.jpg" alt="Startseite im Frühling"></div><p class="bildtext"><b>Frühling</b></p></div>
+    <div><div class="bild" style="aspect-ratio:16/10"><img src="../startseite_sommer_klar.jpg" alt="Startseite im Sommer"></div><p class="bildtext"><b>Sommer</b></p></div>
+    <div><div class="bild" style="aspect-ratio:16/10"><img src="./hero_herbst.jpg" alt="Startseite im Herbst"></div><p class="bildtext"><b>Herbst</b></p></div>
+    <div><div class="bild" style="aspect-ratio:16/10"><img src="./hero_winter.jpg" alt="Startseite im Winter mit Raureif"></div><p class="bildtext"><b>Winter</b></p></div>
+  </div>
+  <p style="margin-top:26px;font-size:30px;display:flex;align-items:center;gap:18px"><svg width="46" height="46" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="var(--fichte)" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="9.5"/><ellipse cx="12" cy="12" rx="4" ry="9.5"/><path d="M2.5 12h19"/></svg><span>Selbst ausprobieren: Jahreszeit und Wetter einstellen</span> <a href="https://lfranne.github.io/ab-ins-gruene-vorschau/jahreszeiten/" style="color:var(--dust);text-decoration-color:var(--fichte);text-decoration-thickness:3px;text-underline-offset:5px">lfranne.github.io/ab-ins-gruene-vorschau/jahreszeiten</a></p>
+  <p class="bildtext" style="margin-top:34px;font-size:28px">Ich wollte erst echte Fotos, geworden ist es naturrealistische Bild-KI. Das passt nicht ganz zum Anfangsanspruch „echt, regional“.</p>
+  <p class="klein" style="margin-top:auto">Die Bilder sind überwiegend KI-erzeugt, die Nutzungsrechte sind noch zu klären.</p>
+</section>
+
+<!-- 7 Hase 3D -->
+<section class="slide" aria-label="Journey Hase 3D">
+  <p class="eyebrow">Journey · Entscheidung 2: Der Hase</p>
+  <h2 style="margin-bottom:24px">Das Ziel: ein 3D-Hase, der natürlich hoppelt</h2>
+  <div class="bild" style="background:#f2efed;width:940px;margin:0 auto"><img src="./hase_3d_posen.jpg" alt="Sieben Posen eines Hasen aus 3D-Modellen auf grauem Grund" style="width:100%;height:auto"></div>
+  <p style="margin-top:22px;max-width:1400px;font-size:30px">Fünf Runden mit Blender und Meshy: Porzellanfigur, Posenfolge wie Daumenkino, Skelett scheitert im Flug.</p>
+  <p style="margin:12px 0 16px;font-size:28px;display:flex;align-items:center;gap:16px"><svg width="40" height="40" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="var(--wald)" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="9.5"/><ellipse cx="12" cy="12" rx="4" ry="9.5"/><path d="M2.5 12h19"/></svg><span>So hoppelte der 3D-Hase (Knopf „Hoppeln“):</span> <a href="https://lfranne.github.io/ab-ins-gruene-vorschau/hase/" style="color:var(--wald);text-decoration-color:var(--fichte);text-decoration-thickness:3px;text-underline-offset:5px">lfranne.github.io/ab-ins-gruene-vorschau/hase</a></p>
+  <p class="lern" style="margin-top:auto"><small>Am 29. Oktober beendet</small>Ich wollte einen 3D-Hasen, der sich bewegt und natürlich hoppelt. Die Aufgabe wurde nicht richtig umgesetzt, also ist 2D die Notlösung.</p>
+</section>
+
+<!-- 8 Hase 2D -->
+<section class="slide dunkel" aria-label="Journey Hase 2D">
+  <p class="eyebrow">Notlösung</p>
+  <h2 style="margin-bottom:30px">Zwölf Zeichnungen, harte Wechsel</h2>
+  <div class="bild" style="background:var(--dust);padding:16px 30px;display:grid;gap:6px">
+    <div style="overflow:hidden;height:181px"><img src="./hase_folge.webp" alt="Sechs gezeichnete Posen eines Hasen im Sprung, erste Hälfte der Folge" style="width:200%;max-width:none;height:auto"></div>
+    <div style="overflow:hidden;height:181px"><img src="./hase_folge.webp" alt="Sechs gezeichnete Posen eines Hasen im Sprung, zweite Hälfte der Folge" style="width:200%;max-width:none;height:auto;margin-left:-100%"></div>
+  </div>
+  <p style="margin-top:22px;max-width:1400px;font-size:30px">Gezeichnete Posen statt berechneter Zwischenbilder. Ein Lauf je Seitenaufruf, auf vier Seiten.</p>
+  <p class="lern" style="margin-top:auto"><small>Was ich mitnehme</small>Berechnete Zwischenbilder sahen falsch aus. Gezeichnet schlägt berechnet.</p>
+</section>
+
+<!-- 9 Regeln -->
+<section class="slide" aria-label="Bauen mit KI: drei Regeln">
+  <p class="eyebrow">Bauen mit KI</p>
+  <h2 style="margin-bottom:34px">Drei Regeln, die den Unterschied gemacht haben</h2>
+  <div class="reihe drei">
+    <div class="karte"><div class="nr" style="color:var(--wald)">1</div><h3>Plan, Entwurf, Freigabe</h3><p>Größere Aufgaben nur so: analysieren, Varianten, HTML-Entwurf, meine Freigabe, Plan, Umsetzung.</p></div>
+    <div class="karte"><div class="nr" style="color:var(--wald)">2</div><h3>Entwurf zuerst als Vorschau</h3><p>Neue Ideen erst als nummerierte Testseite im Browser. Ablehnen kostet nichts, es geht nichts kaputt.</p></div>
+    <div class="karte"><div class="nr" style="color:var(--wald)">3</div><h3>Ein Schritt nach dem anderen</h3><p>Eine Sache pro Nachricht, Änderungen nur nach meinem Ja. „Keine Präferenz“ ist keine Freigabe.</p></div>
+  </div>
+  <p class="lern"><small>Gedächtnis</small>Übergabedatei, „Weiter geht’s“ und Memory-Dateien machen aus jeder neuen Session eine Fortsetzung.</p>
+</section>
+
+<!-- 10 Zahlen und Empfehlung -->
+<section class="slide dunkel" aria-label="Zahlen und Empfehlung">
+  <p class="eyebrow">In vier Wochen</p>
+  <div class="reihe vier" style="margin-top:10px">
+    <div><div class="zahl">94</div><div class="zahltext">HTML-Entwürfe</div></div>
+    <div><div class="zahl">23</div><div class="zahltext">Pläne</div></div>
+    <div><div class="zahl">230+</div><div class="zahltext">Commits</div></div>
+    <div><div class="zahl">29.10.</div><div class="zahltext">live</div></div>
+  </div>
+  <div class="tools"><span>Claude Code</span><span>Figma-KI</span><span>Canva</span><span>ChatGPT</span><span>Meshy</span><span>Blender</span><span>Airtable</span><span>n8n</span></div>
+  <p class="lern" style="margin-top:auto"><small>Meine Empfehlung</small>Lasst euch Varianten zeigen, bevor etwas gebaut wird.</p>
+</section>
+
+<!-- 11 Ehrlich -->
+<section class="slide" aria-label="Ehrlich: was nicht gut lief">
+  <p class="eyebrow">Ehrlich</p>
+  <h2 style="margin-bottom:34px">Was nicht gut lief</h2>
+  <div class="reihe zwei">
+    <div class="karte"><h3>Zu lange mit Kleinigkeiten</h3><p>Hero-Varianten, Feinheiten der Hasenbewegung, Zeilenbreiten, Pixel und Wortlaut.</p></div>
+    <div class="karte"><h3>Zu spät abgebrochen</h3><p>Fünf 3D-Runden beim Hasen, bevor ich auf 2D gewechselt bin.</p></div>
+    <div class="karte"><h3>Rechte und Recht offen</h3><p>Nutzungsrechte an KI-Bildern, Rechtstexte ohne Prüfung. Ein bewusst getragenes Risiko.</p></div>
+    <div class="karte"><h3>Noch nicht gemessen</h3><p>Keine Rückmeldungen von Gästen. Auf meinem 4K-Bildschirm ist die Seite noch langsam.</p></div>
+  </div>
+  <p class="lern"><small>Heute anders</small>Früher abbrechen.</p>
+</section>
+
+<!-- 12 Danke -->
+<section class="slide dunkel" aria-label="Danke und Fragen">
+  <img class="logo" src="../AIG_logotype_signet_links_dust.svg" alt="Ab ins Grüne" width="559" height="103">
+  <h1 style="font-size:84px">Danke. Eure Fragen?</h1>
+  <ul class="links">
+    <li><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="9.5"/><ellipse cx="12" cy="12" rx="4" ry="9.5"/><path d="M2.5 12h19"/></svg><a href="https://ab-ins-gruene.net/">ab-ins-gruene.net</a></li>
+    <li><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" fill="currentColor"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.921.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg><a href="https://github.com/LFranne/ab-ins-gruene-vorschau">LFranne/ab-ins-gruene-vorschau</a></li>
+    <li><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0z"/></svg><a href="https://www.linkedin.com/in/franziska-l%C3%B6ffelmann-b984a813a/">franziska-löffelmann</a></li>
+  </ul>
+  <p class="klein" style="margin-top:auto">Franziska Löffelmann · DL Vibe Coding Bootcamp · Finaler Check-In 2026</p>
+</section>
+
+</main>
+<div class="balken" id="balken" aria-hidden="true"></div>
+<div class="hilfe" aria-hidden="true">← → Folien · F Vollbild · Pos1/Ende</div>
+<script>
+(function () {
+  var folien = Array.prototype.slice.call(document.querySelectorAll('.slide'));
+  var buehne = document.getElementById('buehne');
+  var balken = document.getElementById('balken');
+  var i = 0;
+  function nr() { var h = parseInt((location.hash || '').replace('#', ''), 10); return h >= 1 && h <= folien.length ? h - 1 : 0; }
+  function zeigen(n) {
+    i = Math.max(0, Math.min(folien.length - 1, n));
+    folien.forEach(function (f, k) { f.classList.toggle('aktiv', k === i); f.setAttribute('aria-hidden', k === i ? 'false' : 'true'); });
+    balken.style.width = ((i + 1) / folien.length * 100) + '%';
+    try { history.replaceState(null, '', '#' + (i + 1)); } catch (e) {}
+  }
+  function skalieren() {
+    var s = Math.min(window.innerWidth / 1600, window.innerHeight / 900);
+    buehne.style.transform = 'translate(-50%,-50%) scale(' + s + ')';
+  }
+  window.addEventListener('resize', skalieren);
+  window.addEventListener('hashchange', function () { zeigen(nr()); });
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'ArrowRight' || e.key === 'PageDown' || e.key === ' ') { e.preventDefault(); zeigen(i + 1); }
+    else if (e.key === 'ArrowLeft' || e.key === 'PageUp') { e.preventDefault(); zeigen(i - 1); }
+    else if (e.key === 'Home') zeigen(0);
+    else if (e.key === 'End') zeigen(folien.length - 1);
+    else if (e.key === 'f' || e.key === 'F') { if (document.fullscreenElement) document.exitFullscreen(); else document.documentElement.requestFullscreen && document.documentElement.requestFullscreen(); }
+  });
+  var x0 = null;
+  document.addEventListener('touchstart', function (e) { x0 = e.touches[0].clientX; }, { passive: true });
+  document.addEventListener('touchend', function (e) {
+    if (x0 === null) return;
+    var dx = e.changedTouches[0].clientX - x0; x0 = null;
+    if (Math.abs(dx) > 50) zeigen(i + (dx < 0 ? 1 : -1));
+  });
+  document.addEventListener('click', function (e) {
+    if (e.target.closest('a')) return;
+    zeigen(i + (e.clientX < window.innerWidth / 3 ? -1 : 1));
+  });
+  skalieren();
+  zeigen(nr());
+})();
+</script>
+</body>
+</html>
